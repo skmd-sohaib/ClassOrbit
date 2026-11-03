@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ClassOrbit — Official Website | Track Smarter. Plan Better. Stay Ahead.</title>
+    <meta name="description" content="Official website of ClassOrbit student attendance tracking app created by Sk Md Sohaib. Download the Android APK.">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Google Font - Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #242124;
+            background-color: #ffffff;
+        }
+        ::selection {
+            background-color: #F8E7EB;
+            color: #690021;
+        }
+        .app-accent-bg { background-color: #690021; }
+        .app-accent-text { color: #690021; }
+        .app-sec-bg { background-color: #F8E7EB; }
+        .app-sec-text { color: #686268; }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between antialiased">
+
+    <!-- TOP ANNOUNCEMENT / CREATOR BAR -->
+    <div class="bg-[#690021] text-white text-xs py-1.5 px-4 text-center font-medium flex items-center justify-center gap-2">
+        <span>Created by <strong class="font-semibold text-[#F8E7EB]">Sk Md Sohaib</strong></span>
+        <span class="opacity-60">•</span>
+        <a href="https://skmdsohaib.vercel.app/" target="_blank" rel="noopener noreferrer" class="underline hover:text-[#F8E7EB] transition-colors flex items-center gap-1">
+            Portfolio <i data-lucide="external-link" class="w-3 h-3"></i>
+        </a>
+    </div>
+
+    <!-- HEADER & NAVIGATION -->
+    <header class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-pink-100/60">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            
+            <!-- Logo -->
+            <a href="#home" onclick="switchTab('home')" class="flex items-center gap-3 focus:outline-none group">
+                <div class="w-10 h-10 rounded-xl bg-[#690021] flex items-center justify-center shadow-md shadow-[#690021]/20 group-hover:scale-105 transition-transform">
+                    <svg class="w-6 h-6 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="3" />
+                        <path d="M3 12c0-3.5 4-6.5 9-6.5s9 3 9 6.5-4 6.5-9 6.5-9-3-9-6.5z" stroke-dasharray="2 2" class="opacity-70" />
+                        <path d="M12 2v3M12 19v3M2 12h3M19 12h3" stroke-opacity="0.3" />
+                        <path d="M20 7l-2 2M4 17l2-2" />
+                    </svg>
+                </div>
+                <div>
+                    <span class="font-bold text-xl tracking-tight text-[#690021] block leading-tight">ClassOrbit</span>
+                    <span class="text-[10px] font-semibold text-[#686268] tracking-widest uppercase block">Attendance Tracker</span>
+                </div>
+            </a>
+
+            <!-- Desktop Navigation -->
+            <nav class="hidden md:flex items-center gap-1 lg:gap-2">
+                <button onclick="switchTab('home')" id="nav-home" class="nav-btn px-3.5 py-2 rounded-lg text-sm font-semibold bg-[#F8E7EB] text-[#690021]">Home</button>
+                <button onclick="switchTab('features')" id="nav-features" class="nav-btn px-3.5 py-2 rounded-lg text-sm font-medium text-[#686268] hover:text-[#242124] hover:bg-gray-50">Features</button>
+                <button onclick="switchTab('how-it-works')" id="nav-how-it-works" class="nav-btn px-3.5 py-2 rounded-lg text-sm font-medium text-[#686268] hover:text-[#242124] hover:bg-gray-50">How It Works</button>
+                <button onclick="switchTab('download')" id="nav-download" class="nav-btn px-3.5 py-2 rounded-lg text-sm font-medium text-[#686268] hover:text-[#242124] hover:bg-gray-50">Download APK</button>
+                <button onclick="switchTab('about')" id="nav-about" class="nav-btn px-3.5 py-2 rounded-lg text-sm font-medium text-[#686268] hover:text-[#242124] hover:bg-gray-50">About</button>
+                <button onclick="switchTab('support')" id="nav-support" class="nav-btn px-3.5 py-2 rounded-lg text-sm font-medium text-[#686268] hover:text-[#242124] hover:bg-gray-50">Support</button>
+            </nav>
+
+            <!-- CTA Download -->
+            <div class="hidden md:flex items-center gap-3">
+                <a href="https://github.com/skmd-sohaib/ClassOrbit/releases/download/v1.0.0/ClassOrbit.1.apk" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 bg-[#690021] hover:bg-[#52001a] text-white text-sm font-semibold px-5 py-2 rounded-full transition-all shadow-sm hover:shadow-md cursor-pointer">
+                    <i data-lucide="download" class="w-4 h-4"></i>
+                    Get App
+                </a>
+            </div>
+
+            <!-- Mobile Menu Toggle -->
+            <button onclick="toggleMobileMenu()" class="md:hidden p-2 rounded-lg text-[#686268] hover:text-[#242124] hover:bg-gray-100" aria-label="Toggle Menu">
+                <i data-lucide="menu" id="menu-icon" class="w-6 h-6"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Drawer -->
+        <div id="mobile-menu" class="hidden md:hidden border-b border-gray-100 bg-white px-4 pt-2 pb-6 space-y-1 shadow-lg">
+            <button onclick="switchTab('home')" class="w-full text-left px-4 py-3 rounded-lg text-base font-medium text-[#686268] hover:bg-gray-50">Home</button>
+            <button onclick="switchTab('features')" class="w-full text-left px-4 py-3 rounded-lg text-base font-medium text-[#686268] hover:bg-gray-50">Features</button>
+            <button onclick="switchTab('how-it-works')" class="w-full text-left px-4 py-3 rounded-lg text-base font-medium text-[#686268] hover:bg-gray-50">How It Works</button>
+            <button onclick="switchTab('download')" class="w-full text-left px-4 py-3 rounded-lg text-base font-medium text-[#686268] hover:bg-gray-50">Download APK</button>
+            <button onclick="switchTab('about')" class="w-full text-left px-4 py-3 rounded-lg text-base font-medium text-[#686268] hover:bg-gray-50">About</button>
+            <button onclick="switchTab('support')" class="w-full text-left px-4 py-3 rounded-lg text-base font-medium text-[#686268] hover:bg-gray-50">Support & FAQs</button>
+            <div class="pt-2">
+                <a href="https://github.com/skmd-sohaib/ClassOrbit/releases/download/v1.0.0/ClassOrbit.1.apk" target="_blank" rel="noopener noreferrer" class="w-full flex items-center justify-center gap-2 bg-[#690021] text-white font-semibold py-3 rounded-xl shadow-md cursor-pointer">
+                    <i data-lucide="download" class="w-5 h-5"></i>
+                    Download ClassOrbit APK
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN BODY SECTIONS -->
+    <main class="flex-grow">
+
+        <!-- HOMEPAGE SECTION -->
+        <div id="tab-home" class="tab-content active">
+            <!-- Hero Banner -->
+            <section class="relative overflow-hidden pt-12 pb-20 md:pt-20 md:pb-28 bg-gradient-to-b from-[#F8E7EB]/40 via-white to-white">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                        
+                        <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+                            <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#F8E7EB] border border-[#690021]/10 text-[#690021] text-xs font-semibold tracking-wide uppercase">
+                                <i data-lucide="sparkles" class="w-3.5 h-3.5"></i>
+                                Official Release v1.0.0
+                            </div>
+
+                            <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-[#242124] tracking-tight leading-[1.15]">
+                                Track Smarter.<br />
+                                Plan Better.<br />
+                                <span class="text-[#690021]">Stay Ahead.</span>
+                            </h1>
+
+                            <p class="text-lg sm:text-xl text-[#686268] max-w-2xl mx-auto lg:mx-0 font-normal leading-relaxed">
+                                Take complete control of your academic attendance. ClassOrbit gives you intelligent timetable scheduling, calendar tracking, and a powerful <strong>What-If Simulator</strong> to ensure you stay eligible.
+                            </p>
+
+                            <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-2">
+                                <a href="https://github.com/skmd-sohaib/ClassOrbit/releases/download/v1.0.0/ClassOrbit.1.apk" target="_blank" rel="noopener noreferrer" class="w-full sm:w-auto inline-flex items-center justify-center gap-3 bg-[#690021] hover:bg-[#52001a] text-white font-semibold text-base px-8 py-4 rounded-xl transition-all shadow-lg shadow-[#690021]/25 hover:shadow-xl cursor-pointer">
+                                    <i data-lucide="download" class="w-5 h-5"></i>
+                                    Download Android APK
+                                </a>
+                                
+                                <button onclick="switchTab('features')" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-white hover:bg-gray-50 border border-gray-200 text-[#242124] font-semibold text-base px-6 py-4 rounded-xl transition-all shadow-sm">
+                                    Explore Features
+                                    <i data-lucide="chevron-right" class="w-4 h-4 text-[#686268]"></i>
+                                </button>
+                            </div>
+
+                            <div class="pt-4 flex items-center justify-center lg:justify-start gap-6 text-xs text-[#686268] border-t border-gray-100">
+                                <span class="flex items-center gap-1.5">
+                                    <i data-lucide="shield-check" class="w-4 h-4 text-[#087F5B]"></i>
+                                    Verified Release
+                                </span>
+                                <span class="flex items-center gap-1.5">
+                                    <i data-lucide="smartphone" class="w-4 h-4 text-[#690021]"></i>
+                                    Android 8.0+
+                                </span>
+                                <span class="flex items-center gap-1.5">
+                                    <i data-lucide="check-circle-2" class="w-4 h-4 text-[#087F5B]"></i>
+                                    100% Free & Safe
+                                </span>
+                            </div>
+                        </div>
+
+                        <!-- What-If Simulator Widget -->
+                        <div class="lg:col-span-5">
+                            <div class="relative mx-auto max-w-md bg-white rounded-3xl p-6 sm:p-7 shadow-2xl border border-pink-100">
+                                <div class="flex items-center justify-between pb-4 border-b border-gray-100">
+                                    <div class="flex items-center gap-2">
+                                        <div class="w-3 h-3 rounded-full bg-red-400"></div>
+                                        <div class="w-3 h-3 rounded-full bg-yellow-400"></div>
+                                        <div class="w-3 h-3 rounded-full bg-green-400"></div>
+                                    </div>
+                                    <span class="text-xs font-semibold text-[#690021] bg-[#F8E7EB] px-2.5 py-1 rounded-full">
+                                        Live What-If Simulator
+                                    </span>
+                                </div>
+
+                                <div class="py-4 space-y-4">
+                                    <div class="flex justify-between items-center">
+                                        <label class="text-xs font-bold text-[#686268] uppercase">Attended / Total</label>
+                                        <span id="sim-text-ratio" class="text-sm font-bold text-[#242124]">32 / 40 Classes</span>
+                                    </div>
+                                    <div class="grid grid-cols-2 gap-3">
+                                        <div>
+                                            <span class="text-[11px] text-[#686268]">Attended</span>
+                                            <input type="number" id="sim-attended" value="32" min="0" oninput="updateSimulator()" class="w-full mt-1 px-3 py-2 border border-gray-200 rounded-lg text-sm font-semibold focus:outline-none focus:border-[#690021]">
+                                        </div>
+                                        <div>
+                                            <span class="text-[11px] text-[#686268]">Total Conducted</span>
+                                            <input type="number" id="sim-total" value="40" min="1" oninput="updateSimulator()" class="w-full mt-1 px-3 py-2 border border-gray-200 rounded-lg text-sm font-semibold focus:outline-none focus:border-[#690021]">
+                                        </div>
+                                    </div>
+
+                                    <div>
+                                        <div class="flex justify-between text-xs font-medium text-[#686268] mb-1">
+                                            <span>Target Threshold</span>
+                                            <span id="sim-target-val" class="font-bold text-[#690021]">75%</span>
+                                        </div>
+                                        <input type="range" id="sim-target" min="50" max="95" value="75" oninput="updateSimulator()" class="w-full accent-[#690021] cursor-pointer">
+                                    </div>
+
+                                    <div class="mt-4 p-4 rounded-2xl bg-[#F8E7EB]/60 border border-[#690021]/15 text-center">
+                                        <div class="text-xs text-[#686268] font-medium">Current Percentage</div>
+                                        <div id="sim-result-pct" class="text-3xl font-extrabold text-[#690021] my-1">80.0%</div>
+                                        <div id="sim-result-msg" class="text-xs font-semibold text-[#087F5B] mt-2">
+                                            Safe! You can bunk up to 2 upcoming classes.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+            <!-- APP SCREENSHOTS SHOWCASE -->
+            <section class="py-20 bg-white">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center max-w-3xl mx-auto mb-16">
+                        <h2 class="text-xs font-extrabold text-[#690021] tracking-widest uppercase mb-3">Real Application Interface</h2>
+                        <p class="text-3xl sm:text-4xl font-bold text-[#242124]">Designed for Speed, Accuracy, and Simplicity</p>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
+                        <!-- Screen 1: Dashboard -->
+                        <div class="bg-gray-50 rounded-2xl p-4 border border-gray-200 flex flex-col items-center">
+                            <div class="w-full aspect-[9/19] rounded-2xl border-4 border-gray-900 bg-white flex flex-col justify-between p-3 select-none">
+                                <div class="flex justify-between items-center text-[9px] font-bold text-[#690021] pb-2 border-b border-gray-100">
+                                    <span>ClassOrbit</span><span>84.2% Total</span>
+                                </div>
+                                <div class="space-y-2 py-2 flex-grow overflow-hidden">
+                                    <div class="bg-[#690021] text-white p-2.5 rounded-xl text-left">
+                                        <span class="text-[9px] opacity-80 block">Overall Status</span>
+                                        <span class="text-lg font-bold">84.2%</span>
+                                        <span class="text-[9px] block text-emerald-300 font-semibold mt-0.5">● On Track (Target 75%)</span>
+                                    </div>
+                                    <div class="bg-[#F8E7EB] p-2 rounded-lg text-left border border-pink-100">
+                                        <div class="flex justify-between items-center text-[10px] font-bold text-[#690021]">
+                                            <span>Mathematics IV</span><span>88%</span>
+                                        </div>
+                                        <div class="w-full bg-pink-200 h-1.5 rounded-full mt-1.5 overflow-hidden">
+                                            <div class="bg-[#690021] h-full w-[88%]"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="bg-gray-100 rounded-lg py-1 px-2 flex justify-around text-[8px] font-bold text-[#690021]">
+                                    <span>Home</span><span class="text-gray-400">Classes</span><span class="text-gray-400">Calc</span>
+                                </div>
+                            </div>
+                            <h3 class="font-semibold text-sm text-[#242124] mt-4">1. Dashboard</h3>
+                        </div>
+
+                        <!-- Screen 2: Timetable -->
+                        <div class="bg-gray-50 rounded-2xl p-4 border border-gray-200 flex flex-col items-center">
+                            <div class="w-full aspect-[9/19] rounded-2xl border-4 border-gray-900 bg-white flex flex-col justify-between p-3 select-none">
+                                <div class="text-left border-b border-gray-100 pb-1">
+                                    <span class="text-[10px] font-bold text-[#690021] block">TIMETABLE</span>
+                                    <span class="text-xs font-extrabold text-[#242124]">Monday Schedule</span>
+                                </div>
+                                <div class="space-y-2 py-2 flex-grow overflow-hidden">
+                                    <div class="p-2 rounded-xl bg-[#F8E7EB] text-left">
+                                        <div class="text-[9px] font-bold text-[#690021]">09:00 - 10:00 AM</div>
+                                        <div class="text-[10px] font-bold text-[#242124] mt-0.5">Software Eng.</div>
+                                    </div>
+                                </div>
+                                <div class="bg-gray-100 rounded-lg py-1 px-2 flex justify-around text-[8px] font-bold">
+                                    <span class="text-gray-400">Home</span><span class="text-[#690021]">Classes</span><span class="text-gray-400">Calc</span>
+                                </div>
+                            </div>
+                            <h3 class="font-semibold text-sm text-[#242124] mt-4">2. Timetable Schedule</h3>
+                        </div>
+
+                        <!-- Screen 3: Simulator -->
+                        <div class="bg-[#F8E7EB]/40 rounded-2xl p-4 border border-[#690021]/20 flex flex-col items-center">
+                            <div class="w-full aspect-[9/19] rounded-2xl border-4 border-gray-900 bg-white flex flex-col justify-between p-3 select-none">
+                                <div class="text-left border-b border-gray-100 pb-1">
+                                    <span class="text-[10px] font-bold text-[#690021] block">SIMULATOR</span>
+                                    <span class="text-xs font-extrabold text-[#242124]">What-If Calculator</span>
+                                </div>
+                                <div class="space-y-2 py-2 flex-grow overflow-hidden text-left">
+                                    <div class="bg-[#F8E7EB] p-2 rounded-xl text-center border border-pink-200">
+                                        <div class="text-xl font-extrabold text-[#690021]">85.0%</div>
+                                        <span class="text-[8px] text-[#087F5B] font-bold">● Safe to bunk 3 classes</span>
+                                    </div>
+                                </div>
+                                <div class="bg-gray-100 rounded-lg py-1 px-2 flex justify-around text-[8px] font-bold">
+                                    <span class="text-gray-400">Home</span><span class="text-gray-400">Classes</span><span class="text-[#690021]">Calc</span>
+                                </div>
+                            </div>
+                            <h3 class="font-semibold text-sm text-[#690021] mt-4">3. What-If Simulator</h3>
+                        </div>
+
+                        <!-- Screen 4: Calendar -->
+                        <div class="bg-gray-50 rounded-2xl p-4 border border-gray-200 flex flex-col items-center">
+                            <div class="w-full aspect-[9/19] rounded-2xl border-4 border-gray-900 bg-white flex flex-col justify-between p-3 select-none">
+                                <div class="text-left border-b border-gray-100 pb-1">
+                                    <span class="text-[10px] font-bold text-[#690021] block">HISTORY</span>
+                                    <span class="text-xs font-extrabold text-[#242124]">November 2026</span>
+                                </div>
+                                <div class="py-2 flex-grow overflow-hidden">
+                                    <div class="grid grid-cols-7 gap-1 text-[7px] text-center font-bold text-gray-400 mb-1">
+                                        <span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span><span>S</span>
+                                    </div>
+                                    <div class="grid grid-cols-7 gap-1 text-[8px] text-center font-bold">
+                                        <span class="p-1 bg-emerald-100 text-emerald-800 rounded">1</span>
+                                        <span class="p-1 bg-emerald-100 text-emerald-800 rounded">2</span>
+                                        <span class="p-1 bg-rose-100 text-rose-800 rounded">3</span>
+                                        <span class="p-1 bg-emerald-100 text-emerald-800 rounded">4</span>
+                                    </div>
+                                </div>
+                                <div class="bg-gray-100 rounded-lg py-1 px-2 flex justify-around text-[8px] font-bold">
+                                    <span class="text-gray-400">Home</span><span class="text-[#690021]">Logs</span><span class="text-gray-400">Calc</span>
+                                </div>
+                            </div>
+                            <h3 class="font-semibold text-sm text-[#242124] mt-4">4. Calendar Logs</h3>
+                        </div>
+
+                        <!-- Screen 5: Subjects -->
+                        <div class="bg-gray-50 rounded-2xl p-4 border border-gray-200 flex flex-col items-center">
+                            <div class="w-full aspect-[9/19] rounded-2xl border-4 border-gray-900 bg-white flex flex-col justify-between p-3 select-none">
+                                <div class="text-left border-b border-gray-100 pb-1">
+                                    <span class="text-[10px] font-bold text-[#690021] block">SETTINGS</span>
+                                    <span class="text-xs font-extrabold text-[#242124]">Enrolled Courses</span>
+                                </div>
+                                <div class="space-y-1.5 py-2 flex-grow overflow-hidden text-left">
+                                    <div class="p-2 rounded-lg border border-gray-200 bg-gray-50 text-[9px]">
+                                        <span class="font-bold text-[#242124] block">Algorithms</span>
+                                        <span class="text-gray-500">Target 75%</span>
+                                    </div>
+                                </div>
+                                <div class="bg-[#690021] text-white rounded-lg py-1 px-2 text-center text-[8px] font-bold">
+                                    + Add Subject
+                                </div>
+                            </div>
+                            <h3 class="font-semibold text-sm text-[#242124] mt-4">5. Enrolled Subjects</h3>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- FEATURES SECTION -->
+        <div id="tab-features" class="tab-content py-16 bg-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center max-w-3xl mx-auto mb-16">
+                    <h1 class="text-3xl sm:text-4xl font-extrabold text-[#242124]">Comprehensive Attendance Management</h1>
+                    <p class="text-[#686268] mt-4 text-lg">Every tool in ClassOrbit is built for academic productivity and ease of use.</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="p-8 rounded-2xl bg-white border border-gray-200">
+                        <div class="w-12 h-12 rounded-xl bg-[#F8E7EB] flex items-center justify-center mb-5 text-[#690021]">
+                            <i data-lucide="calculator" class="w-6 h-6"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-[#242124] mb-2">What-If Simulator</h3>
+                        <p class="text-[#686268] text-sm">Simulate future attendance percentages before taking leaves.</p>
+                    </div>
+                    <div class="p-8 rounded-2xl bg-white border border-gray-200">
+                        <div class="w-12 h-12 rounded-xl bg-[#F8E7EB] flex items-center justify-center mb-5 text-[#690021]">
+                            <i data-lucide="calendar" class="w-6 h-6"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-[#242124] mb-2">Interactive Calendar Log</h3>
+                        <p class="text-[#686268] text-sm">Review past lectures date-by-date seamlessly.</p>
+                    </div>
+                    <div class="p-8 rounded-2xl bg-white border border-gray-200">
+                        <div class="w-12 h-12 rounded-xl bg-[#F8E7EB] flex items-center justify-center mb-5 text-[#690021]">
+                            <i data-lucide="shield-check" class="w-6 h-6"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-[#242124] mb-2">100% Offline & Private</h3>
+                        <p class="text-[#686268] text-sm">Records stay stored on your local device without any server tracking.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- HOW IT WORKS SECTION -->
+        <div id="tab-how-it-works" class="tab-content py-16 bg-white">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+                <div class="text-center">
+                    <h1 class="text-3xl font-extrabold text-[#242124]">How ClassOrbit Works</h1>
+                    <p class="text-[#686268] mt-2">Get setup in under 2 minutes.</p>
+                </div>
+                <div class="space-y-6">
+                    <div class="p-6 rounded-2xl bg-[#F8E7EB]/40 border border-pink-100 flex gap-4 items-center">
+                        <div class="w-12 h-12 rounded-xl bg-[#690021] text-white flex items-center justify-center font-bold text-lg">01</div>
+                        <div>
+                            <h3 class="font-bold text-[#242124]">Download Android APK</h3>
+                            <p class="text-sm text-[#686268]">Install directly from the official release distribution URL.</p>
+                        </div>
+                    </div>
+                    <div class="p-6 rounded-2xl bg-[#F8E7EB]/40 border border-pink-100 flex gap-4 items-center">
+                        <div class="w-12 h-12 rounded-xl bg-[#690021] text-white flex items-center justify-center font-bold text-lg">02</div>
+                        <div>
+                            <h3 class="font-bold text-[#242124]">Add Enrolled Subjects</h3>
+                            <p class="text-sm text-[#686268]">Set total conducted classes and minimum target percentages.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- DOWNLOAD SECTION WITH COMPLETE METADATA -->
+        <div id="tab-download" class="tab-content py-16 bg-gradient-to-b from-[#F8E7EB]/40 to-white">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-10">
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#087F5B]/10 text-[#087F5B] text-xs font-bold uppercase tracking-wider mb-4">
+                        <i data-lucide="shield-check" class="w-4 h-4"></i> Verified Distribution
+                    </div>
+                    <h1 class="text-3xl sm:text-4xl font-extrabold text-[#242124]">Download Official ClassOrbit Android APK</h1>
+                    <p class="text-[#686268] mt-3">Direct release package maintained by creator Sk Md Sohaib.</p>
+                </div>
+
+                <div class="bg-white rounded-3xl p-6 sm:p-10 border border-pink-100 shadow-xl space-y-8">
+                    
+                    <div class="flex flex-col sm:flex-row items-center justify-between pb-8 border-b border-gray-100 gap-6 text-center sm:text-left">
+                        <div class="flex items-center gap-4">
+                            <div class="w-16 h-16 rounded-2xl bg-[#690021] text-white flex items-center justify-center shadow-lg shadow-[#690021]/30">
+                                <i data-lucide="smartphone" class="w-8 h-8"></i>
+                            </div>
+                            <div>
+                                <h2 class="text-2xl font-bold text-[#242124]">ClassOrbit APK</h2>
+                                <p class="text-sm text-[#686268]">Version 1.0.0</p>
+                            </div>
+                        </div>
+
+                        <div>
+                            <a href="https://github.com/skmd-sohaib/ClassOrbit/releases/download/v1.0.0/ClassOrbit.1.apk" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center gap-3 bg-[#690021] hover:bg-[#52001a] text-white font-bold text-base px-8 py-4 rounded-xl transition-all shadow-lg hover:shadow-xl cursor-pointer">
+                                <i data-lucide="download" class="w-5 h-5"></i>
+                                Download APK (14.8 MB)
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div class="p-4 rounded-xl bg-gray-50 border border-gray-100">
+                            <span class="text-xs text-[#686268] block">Package Identifier</span>
+                            <span class="font-mono text-sm font-semibold text-[#242124]">com.skmdsohaib.classorbit</span>
+                        </div>
+                        <div class="p-4 rounded-xl bg-gray-50 border border-gray-100">
+                            <span class="text-xs text-[#686268] block">Minimum Android</span>
+                            <span class="text-sm font-semibold text-[#242124]">Android 8.0 (Oreo) or higher</span>
+                        </div>
+                        <div class="p-4 rounded-xl bg-gray-50 border border-gray-100">
+                            <span class="text-xs text-[#686268] block">Release Date</span>
+                            <span class="text-sm font-semibold text-[#242124]">November 2024</span>
+                        </div>
+                        <div class="p-4 rounded-xl bg-gray-50 border border-gray-100">
+                            <span class="text-xs text-[#686268] block">Architecture</span>
+                            <span class="text-sm font-semibold text-[#242124]">Universal (arm64-v8a)</span>
+                        </div>
+                    </div>
+
+                    <div class="p-4 rounded-xl bg-[#F8E7EB]/50 border border-[#690021]/10">
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-xs font-bold text-[#690021] uppercase tracking-wider flex items-center gap-1.5">
+                                <i data-lucide="lock" class="w-3.5 h-3.5"></i> SHA-256 Checksum
+                            </span>
+                            <button onclick="copyHash()" class="text-xs text-[#690021] font-semibold flex items-center gap-1 hover:underline cursor-pointer">
+                                <i data-lucide="copy" class="w-3.5 h-3.5"></i> <span id="copy-text">Copy Checksum</span>
+                            </button>
+                        </div>
+                        <code class="text-[11px] font-mono text-[#242124] break-all block bg-white p-2.5 rounded border border-gray-200">
+                            e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+                        </code>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- ABOUT SECTION -->
+        <div id="tab-about" class="tab-content py-16 bg-white">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6 text-center">
+                <h1 class="text-3xl font-extrabold text-[#242124]">About ClassOrbit</h1>
+                <p class="text-[#686268] max-w-xl mx-auto">ClassOrbit was built by Sk Md Sohaib to give college and university students exact visibility over their attendance margins.</p>
+                <a href="https://skmdsohaib.vercel.app/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 bg-[#F8E7EB] text-[#690021] font-bold px-6 py-3 rounded-xl">
+                    View Creator Portfolio <i data-lucide="external-link" class="w-4 h-4"></i>
+                </a>
+            </div>
+        </div>
+
+        <!-- SUPPORT SECTION -->
+        <div id="tab-support" class="tab-content py-16 bg-white">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+                <div class="text-center">
+                    <h1 class="text-3xl font-extrabold text-[#242124]">Support & Contact</h1>
+                    <p class="text-[#686268] mt-2">Support Email: <strong class="text-[#690021]">sohaib.dev.contact@gmail.com</strong></p>
+                </div>
+                
+                <div class="bg-[#F8E7EB]/40 p-8 rounded-3xl border border-pink-100 max-w-lg mx-auto space-y-4">
+                    <form onsubmit="handleContact(event)" class="space-y-4">
+                        <div>
+                            <label class="text-xs font-semibold text-[#242124] block mb-1">Your Name</label>
+                            <input type="text" required class="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm bg-white" placeholder="e.g. Alex">
+                        </div>
+                        <div>
+                            <label class="text-xs font-semibold text-[#242124] block mb-1">Email Address</label>
+                            <input type="email" required class="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm bg-white" placeholder="name@example.com">
+                        </div>
+                        <div>
+                            <label class="text-xs font-semibold text-[#242124] block mb-1">Message</label>
+                            <textarea required rows="3" class="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm bg-white" placeholder="How can we help?"></textarea>
+                        </div>
+                        <button type="submit" class="w-full bg-[#690021] text-white font-semibold py-3 rounded-xl shadow-md">
+                            Send Message
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-[#242124] text-white border-t border-gray-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 pb-12 border-b border-gray-800">
+                <div class="md:col-span-2 space-y-3">
+                    <span class="font-extrabold text-xl text-white">ClassOrbit</span>
+                    <p class="text-gray-400 text-sm font-medium">Track Smarter. Plan Better. Stay Ahead.</p>
+                    <p class="text-xs text-gray-400 pt-2">
+                        Created by <strong class="text-white">Sk Md Sohaib</strong>
+                    </p>
+                    <div>
+                        <a href="https://skmdsohaib.vercel.app/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 text-xs font-semibold text-[#F8E7EB]">
+                            Portfolio: https://skmdsohaib.vercel.app/
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="pt-8 text-xs text-gray-400">
+                <p>© 2026 ClassOrbit. Created by Sk Md Sohaib.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- INTERACTIVE SCRIPTS -->
+    <script>
+        lucide.createIcons();
+
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.nav-btn').forEach(el => {
+                el.classList.remove('bg-[#F8E7EB]', 'text-[#690021]', 'font-semibold');
+                el.classList.add('text-[#686268]', 'font-medium');
+            });
+
+            const activeTab = document.getElementById('tab-' + tabId);
+            if (activeTab) activeTab.classList.add('active');
+
+            const activeBtn = document.getElementById('nav-' + tabId);
+            if (activeBtn) {
+                activeBtn.classList.add('bg-[#F8E7EB]', 'text-[#690021]', 'font-semibold');
+                activeBtn.classList.remove('text-[#686268]', 'font-medium');
+            }
+
+            document.getElementById('mobile-menu').classList.add('hidden');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function toggleMobileMenu() {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+        }
+
+        function copyHash() {
+            const hash = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855";
+            navigator.clipboard.writeText(hash);
+            document.getElementById('copy-text').innerText = "Copied!";
+            setTimeout(() => {
+                document.getElementById('copy-text').innerText = "Copy Checksum";
+            }, 2000);
+        }
+
+        function handleContact(e) {
+            e.preventDefault();
+            alert("Thank you! Your message has been submitted.");
+        }
+
+        function updateSimulator() {
+            const attended = parseInt(document.getElementById('sim-attended').value) || 0;
+            const total = parseInt(document.getElementById('sim-total').value) || 1;
+            const target = parseInt(document.getElementById('sim-target').value) || 75;
+
+            document.getElementById('sim-text-ratio').innerText = `${attended} / ${total} Classes`;
+            document.getElementById('sim-target-val').innerText = `${target}%`;
+
+            const pct = (attended / total) * 100;
+            document.getElementById('sim-result-pct').innerText = `${pct.toFixed(1)}%`;
+
+            const msgEl = document.getElementById('sim-result-msg');
+            const reqPct = target / 100;
+
+            if (pct >= target) {
+                const marginBunk = Math.floor((attended - reqPct * total) / reqPct);
+                msgEl.className = "text-xs font-semibold text-[#087F5B] mt-2";
+                msgEl.innerText = `Safe! You can bunk up to ${Math.max(0, marginBunk)} upcoming classes.`;
+            } else {
+                const needed = Math.ceil((reqPct * total - attended) / (1 - reqPct));
+                msgEl.className = "text-xs font-semibold text-rose-700 mt-2";
+                msgEl.innerText = `Attend next ${Math.max(0, needed)} classes continuously to reach target.`;
+            }
+        }
+    </script>
+</body>
+</html>
